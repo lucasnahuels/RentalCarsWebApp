@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TrabajoCGB.Models.conductor>
+
+@{
+    ViewBag.Title = "ListadoConductores";
+}
+
+<h2>Listado Conductores</h2>
+
+<div class="text-center">
+    <h4>conductor</h4>
+    <hr />
+    <div class="col-12 col-sm-8 col-lg-6 buscar mr-auto ml-auto">
+        <div class="row no-gutters">
+            <div class="col-8 offset-2">
+                <input type="text" name="busquedaConductor" id="busquedaConductor" placeholder="Buscar conductor por DNI" style="background-color:grey; font-weight:bold; color:black; display:block; width:100%;  border-radius: 25px;">
+            </div>
+            <div class="col-2 pr-3">
+                <input type="button" onclick="buscar()" class="btn btn-primary carousel-control-next-icon" style="height:30px; width:30px" value=" ">
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+<script>
+    function buscar() {
+        list = document.getElementsByClassName("fila");
+        var i;
+        for (i = 0; i < list.length; i++) {
+            console.log(list[i].childNodes[1].innerHTML)
+            list[i].style.backgroundColor = "transparent";
+            list[i].style.color = "black";
+            list[i].style.fontWeight = "normal";
+            if (list[i].childNodes[3].innerHTML.trim() == document.getElementById("busquedaConductor").value.trim()) {
+                list[i].style.backgroundColor = "black";
+                list[i].style.color = "white";
+                list[i].style.fontWeight = "bold";
+            }
+        }
+    }
+</script>
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_conductor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DNI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre_conductor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono_contacto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nro_tarjeta_credito)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="fila">
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_conductor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DNI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre_conductor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono_contacto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nro_tarjeta_credito)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "Eliminar", new { id_conductor = item.id_conductor }, new { style = "font-weight:bold; color:blue" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+<div>
+    @Html.ActionLink("Retornar", "ListadoAlquileres", "Alquiler", null, new { style = "font-weight:bold; color:blue" })
+</div>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TrabajoCGB.Models.ciudad>
+<select name="id_ciudad" id="id_ciudad" class="btn btn-primary" onchange="agregarCiudad()">
+    <optgroup label="1">
+        <option disabled='disabled' selected>Ciudades</option>
+        @foreach (var ciudad in Model)
+        {
+            <option value="@ciudad.id_ciudad">@ciudad.nombre_ciudad</option>
+        }
+    </optgroup>
+    <optgroup label="2">
+        <option value="-1">Otra ciudad</option>
+    </optgroup>
+</select>

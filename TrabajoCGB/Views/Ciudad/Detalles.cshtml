@@ -1,0 +1,35 @@
+﻿@model TrabajoCGB.Models.ciudad
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>ciudad</h4>
+    <hr />
+    <dl class="dl-horizontal text-center">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo_postal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo_postal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_ciudad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id_ciudad = Model.id_ciudad }, new { style = "font-weight:bold; color:blue" }) |
+    @Html.ActionLink("Retornar", "Agregar", "Oficina", null, new { style = "font-weight:bold; color:blue" })
+</p>

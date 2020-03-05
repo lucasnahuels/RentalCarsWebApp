@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BDDAlquilerAutosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alquiler">
+          <Key>
+            <PropertyRef Name="id_alquiler" />
+          </Key>
+          <Property Name="id_alquiler" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="duracion_dias" Type="int" Nullable="false" />
+          <Property Name="tipo_seguro" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="precio" Type="smallmoney" Nullable="false" />
+          <Property Name="id_conductor" Type="int" Nullable="false" />
+          <Property Name="id_coche" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="id_ciudad" />
+          </Key>
+          <Property Name="id_ciudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_postal" Type="int" Nullable="false" />
+          <Property Name="nombre_ciudad" Type="char" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="coche">
+          <Key>
+            <PropertyRef Name="id_coche" />
+          </Key>
+          <Property Name="id_coche" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patente" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="grupo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="marca" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="modelo" Type="int" Nullable="false" />
+          <Property Name="numero_puertas" Type="int" Nullable="false" />
+          <Property Name="numero_pasajeros" Type="int" Nullable="false" />
+          <Property Name="capacidad_baúl" Type="int" Nullable="false" />
+          <Property Name="codigo_unico_oficina" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="conductor">
+          <Key>
+            <PropertyRef Name="id_conductor" />
+          </Key>
+          <Property Name="id_conductor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DNI" Type="int" Nullable="false" />
+          <Property Name="nombre_conductor" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="char" MaxLength="50" />
+          <Property Name="telefono_contacto" Type="char" MaxLength="20" />
+          <Property Name="nro_tarjeta_credito" Type="bigint" />
+        </EntityType>
+        <EntityType Name="oficina">
+          <Key>
+            <PropertyRef Name="codigo_unico_oficina" />
+          </Key>
+          <Property Name="codigo_unico_oficina" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="calle" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="id_ciudad" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__alquiler__id_coc__182C9B23">
+          <End Role="coche" Type="Self.coche" Multiplicity="1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coche">
+              <PropertyRef Name="id_coche" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="id_coche" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__alquiler__id_con__173876EA">
+          <End Role="conductor" Type="Self.conductor" Multiplicity="1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conductor">
+              <PropertyRef Name="id_conductor" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="id_conductor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__coche__codigo_un__0EA330E9">
+          <End Role="oficina" Type="Self.oficina" Multiplicity="1" />
+          <End Role="coche" Type="Self.coche" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oficina">
+              <PropertyRef Name="codigo_unico_oficina" />
+            </Principal>
+            <Dependent Role="coche">
+              <PropertyRef Name="codigo_unico_oficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__oficina__id_ciud__0519C6AF">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
+          <End Role="oficina" Type="Self.oficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="id_ciudad" />
+            </Principal>
+            <Dependent Role="oficina">
+              <PropertyRef Name="id_ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDDAlquilerAutosModelStoreContainer">
+          <EntitySet Name="alquiler" EntityType="Self.alquiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="coche" EntityType="Self.coche" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="conductor" EntityType="Self.conductor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oficina" EntityType="Self.oficina" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__alquiler__id_coc__182C9B23" Association="Self.FK__alquiler__id_coc__182C9B23">
+            <End Role="coche" EntitySet="coche" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__alquiler__id_con__173876EA" Association="Self.FK__alquiler__id_con__173876EA">
+            <End Role="conductor" EntitySet="conductor" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__coche__codigo_un__0EA330E9" Association="Self.FK__coche__codigo_un__0EA330E9">
+            <End Role="oficina" EntitySet="oficina" />
+            <End Role="coche" EntitySet="coche" />
+          </AssociationSet>
+          <AssociationSet Name="FK__oficina__id_ciud__0519C6AF" Association="Self.FK__oficina__id_ciud__0519C6AF">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="oficina" EntitySet="oficina" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDDAlquilerAutosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="alquiler">
+          <Key>
+            <PropertyRef Name="id_alquiler" />
+          </Key>
+          <Property Name="id_alquiler" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="duracion_dias" Type="Int32" Nullable="false" />
+          <Property Name="tipo_seguro" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="id_conductor" Type="Int32" Nullable="false" />
+          <Property Name="id_coche" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="coche" Relationship="Self.FK__alquiler__id_coc__182C9B23" FromRole="alquiler" ToRole="coche" />
+          <NavigationProperty Name="conductor" Relationship="Self.FK__alquiler__id_con__173876EA" FromRole="alquiler" ToRole="conductor" />
+        </EntityType>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="id_ciudad" />
+          </Key>
+          <Property Name="id_ciudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_postal" Type="Int32" Nullable="false" />
+          <Property Name="nombre_ciudad" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="oficina" Relationship="Self.FK__oficina__id_ciud__0519C6AF" FromRole="ciudad" ToRole="oficina" />
+        </EntityType>
+        <EntityType Name="coche">
+          <Key>
+            <PropertyRef Name="id_coche" />
+          </Key>
+          <Property Name="id_coche" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patente" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="grupo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="modelo" Type="Int32" Nullable="false" />
+          <Property Name="numero_puertas" Type="Int32" Nullable="false" />
+          <Property Name="numero_pasajeros" Type="Int32" Nullable="false" />
+          <Property Name="capacidad_baúl" Type="Int32" Nullable="false" />
+          <Property Name="codigo_unico_oficina" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="alquiler" Relationship="Self.FK__alquiler__id_coc__182C9B23" FromRole="coche" ToRole="alquiler" />
+          <NavigationProperty Name="oficina" Relationship="Self.FK__coche__codigo_un__0EA330E9" FromRole="coche" ToRole="oficina" />
+        </EntityType>
+        <EntityType Name="conductor">
+          <Key>
+            <PropertyRef Name="id_conductor" />
+          </Key>
+          <Property Name="id_conductor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DNI" Type="Int32" Nullable="false" />
+          <Property Name="nombre_conductor" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="telefono_contacto" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="nro_tarjeta_credito" Type="Int64" />
+          <NavigationProperty Name="alquiler" Relationship="Self.FK__alquiler__id_con__173876EA" FromRole="conductor" ToRole="alquiler" />
+        </EntityType>
+        <EntityType Name="oficina">
+          <Key>
+            <PropertyRef Name="codigo_unico_oficina" />
+          </Key>
+          <Property Name="codigo_unico_oficina" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="id_ciudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ciudad" Relationship="Self.FK__oficina__id_ciud__0519C6AF" FromRole="oficina" ToRole="ciudad" />
+          <NavigationProperty Name="coche" Relationship="Self.FK__coche__codigo_un__0EA330E9" FromRole="oficina" ToRole="coche" />
+        </EntityType>
+        <Association Name="FK__alquiler__id_coc__182C9B23">
+          <End Role="coche" Type="Self.coche" Multiplicity="1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coche">
+              <PropertyRef Name="id_coche" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="id_coche" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__alquiler__id_con__173876EA">
+          <End Role="conductor" Type="Self.conductor" Multiplicity="1" />
+          <End Role="alquiler" Type="Self.alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="conductor">
+              <PropertyRef Name="id_conductor" />
+            </Principal>
+            <Dependent Role="alquiler">
+              <PropertyRef Name="id_conductor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__oficina__id_ciud__0519C6AF">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="1" />
+          <End Role="oficina" Type="Self.oficina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="id_ciudad" />
+            </Principal>
+            <Dependent Role="oficina">
+              <PropertyRef Name="id_ciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__coche__codigo_un__0EA330E9">
+          <End Role="oficina" Type="Self.oficina" Multiplicity="1" />
+          <End Role="coche" Type="Self.coche" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oficina">
+              <PropertyRef Name="codigo_unico_oficina" />
+            </Principal>
+            <Dependent Role="coche">
+              <PropertyRef Name="codigo_unico_oficina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDDAlquilerAutosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alquiler" EntityType="Self.alquiler" />
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" />
+          <EntitySet Name="coche" EntityType="Self.coche" />
+          <EntitySet Name="conductor" EntityType="Self.conductor" />
+          <EntitySet Name="oficina" EntityType="Self.oficina" />
+          <AssociationSet Name="FK__alquiler__id_coc__182C9B23" Association="Self.FK__alquiler__id_coc__182C9B23">
+            <End Role="coche" EntitySet="coche" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__alquiler__id_con__173876EA" Association="Self.FK__alquiler__id_con__173876EA">
+            <End Role="conductor" EntitySet="conductor" />
+            <End Role="alquiler" EntitySet="alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="FK__oficina__id_ciud__0519C6AF" Association="Self.FK__oficina__id_ciud__0519C6AF">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="oficina" EntitySet="oficina" />
+          </AssociationSet>
+          <AssociationSet Name="FK__coche__codigo_un__0EA330E9" Association="Self.FK__coche__codigo_un__0EA330E9">
+            <End Role="oficina" EntitySet="oficina" />
+            <End Role="coche" EntitySet="coche" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDDAlquilerAutosModelStoreContainer" CdmEntityContainer="BDDAlquilerAutosEntities">
+          <EntitySetMapping Name="alquiler">
+            <EntityTypeMapping TypeName="BDDAlquilerAutosModel.alquiler">
+              <MappingFragment StoreEntitySet="alquiler">
+                <ScalarProperty Name="id_alquiler" ColumnName="id_alquiler" />
+                <ScalarProperty Name="duracion_dias" ColumnName="duracion_dias" />
+                <ScalarProperty Name="tipo_seguro" ColumnName="tipo_seguro" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="id_conductor" ColumnName="id_conductor" />
+                <ScalarProperty Name="id_coche" ColumnName="id_coche" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciudad">
+            <EntityTypeMapping TypeName="BDDAlquilerAutosModel.ciudad">
+              <MappingFragment StoreEntitySet="ciudad">
+                <ScalarProperty Name="id_ciudad" ColumnName="id_ciudad" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="nombre_ciudad" ColumnName="nombre_ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coche">
+            <EntityTypeMapping TypeName="BDDAlquilerAutosModel.coche">
+              <MappingFragment StoreEntitySet="coche">
+                <ScalarProperty Name="id_coche" ColumnName="id_coche" />
+                <ScalarProperty Name="patente" ColumnName="patente" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="numero_puertas" ColumnName="numero_puertas" />
+                <ScalarProperty Name="numero_pasajeros" ColumnName="numero_pasajeros" />
+                <ScalarProperty Name="capacidad_baúl" ColumnName="capacidad_baúl" />
+                <ScalarProperty Name="codigo_unico_oficina" ColumnName="codigo_unico_oficina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="conductor">
+            <EntityTypeMapping TypeName="BDDAlquilerAutosModel.conductor">
+              <MappingFragment StoreEntitySet="conductor">
+                <ScalarProperty Name="id_conductor" ColumnName="id_conductor" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="nombre_conductor" ColumnName="nombre_conductor" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono_contacto" ColumnName="telefono_contacto" />
+                <ScalarProperty Name="nro_tarjeta_credito" ColumnName="nro_tarjeta_credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oficina">
+            <EntityTypeMapping TypeName="BDDAlquilerAutosModel.oficina">
+              <MappingFragment StoreEntitySet="oficina">
+                <ScalarProperty Name="codigo_unico_oficina" ColumnName="codigo_unico_oficina" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="id_ciudad" ColumnName="id_ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

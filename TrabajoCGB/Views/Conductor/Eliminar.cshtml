@@ -1,0 +1,63 @@
+﻿@model TrabajoCGB.Models.conductor
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Estas seguro que deseas eliminar?</h3>
+<div class="text-center">
+    <h4>conductor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DNI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DNI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_conductor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_conductor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono_contacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono_contacto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nro_tarjeta_credito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_tarjeta_credito)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Borrar", null, FormMethod.Get))
+    {
+        <div class="form-actions no-color">
+            <input type="hidden" name="id_conductor" value="@Model.id_conductor" />
+            <input type="submit" value="Eliminar" class="btn btn-secondary" />
+        </div>
+    }
+</div>

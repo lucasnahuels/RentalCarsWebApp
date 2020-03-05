@@ -1,0 +1,120 @@
+﻿@model IEnumerable<TrabajoCGB.Models.alquiler>
+
+@{
+    ViewBag.Title = "ListadoAlquileres";
+}
+
+<h2>Listado Alquileres</h2>
+
+<div class="text-center">
+    <h4>alquiler</h4>
+    <hr />
+    <div class="col-12 col-sm-8 col-lg-6 buscar mr-auto ml-auto">
+        <div class="row no-gutters">
+            <div class="col-8 offset-2">
+                <input type="text" name="busquedaAlquiler" id="busquedaAlquiler" placeholder="Buscar alquiler por DNI del conductor" style="background-color:grey; font-weight:bold; color:black; display:block; width:100%;  border-radius: 25px;">
+            </div>
+            <div class="col-2 pr-3">
+                <input type="button" onclick="buscar()" class="btn btn-primary carousel-control-next-icon" style="height:30px; width:30px" value=" ">
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+<script>
+    function buscar() {
+        list = document.getElementsByClassName("fila");
+        var i;
+        for (i = 0; i < list.length; i++) {
+            console.log(list[i].childNodes[1].innerHTML)
+            list[i].style.backgroundColor = "transparent";
+            list[i].style.color = "black";
+            list[i].style.fontWeight = "normal";
+            if (list[i].childNodes[9].innerHTML.trim() == document.getElementById("busquedaAlquiler").value.trim()) {
+                list[i].style.backgroundColor = "black";
+                list[i].style.color = "white";
+                list[i].style.fontWeight = "bold";
+            }
+        }
+    }
+</script>
+
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_alquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duracion_dias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo_seguro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_conductor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_coche)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="fila">
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_alquiler)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.duracion_dias)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipo_seguro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.precio)
+                </td>
+                <td>
+                    @TrabajoCGB.Controllers.ConductorController.RecuperarDNI_conductor(item.id_conductor)
+                </td>
+                <td>
+                    @TrabajoCGB.Models.MantenimientoCoche.RecuperarPatenteCoche(item.id_coche)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id_alquiler = item.id_alquiler }, new { style = "font-weight:bold; color:blue" })
+                    @Html.ActionLink("Eliminar", "Eliminar", new { id_alquiler = item.id_alquiler }, new { style = "font-weight:bold; color:blue" })
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                @Html.ActionLink("Ver todos los conductores registrados", "ListadoConductores", "Conductor", null, new { style = "font-weight:bold; color:blue" })
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Registrar nuevo alquiler", "Agregar", null, new { style = "font-weight:bold; color:blue" })
+</p>
+<br />
+<p>
+    @Html.ActionLink("Retornar", "Index", "Home", null, new { style = "font-weight:bold; color:blue" })
+</p>

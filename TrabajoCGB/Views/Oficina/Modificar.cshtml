@@ -1,0 +1,103 @@
+﻿@model TrabajoCGB.Models.oficina
+
+@{
+    ViewBag.Title = "Modificar";
+}
+
+@if ((bool)ViewData["no_existe_ciudad"] == true)
+{
+
+    <script>
+        if (!confirm('La ciudad no existe. ¿Desea crearlo?')) {
+            location.href = "/Oficina/Modificar?cod=@Model.codigo_unico_oficina"
+        }
+        else {
+            location.href = "/Ciudad/AgregarCiudad?nombre_ciudad=@ViewData["nombre_ciudad"]" //falta pasar el dni del conductor
+        }
+    </script>
+}
+
+
+<h2>Modificar</h2>
+
+<div class="text-center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>oficina</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <input type="hidden" name="codigo_unico_oficina" id="codigo_unico_oficina" value="@Model.codigo_unico_oficina" />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.calle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.calle, new { htmlAttributes = new { size = "30", maxlength = "50" } })
+                @Html.ValidationMessageFor(model => model.calle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.numero, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.numero, new { htmlAttributes = new { size = "20" , max="100000"} })
+                @Html.ValidationMessageFor(model => model.numero, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { size = "30", MaxLength = "50" } })
+                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.id_ciudad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.Action("ListaCiudades")
+                @Html.ValidationMessageFor(model => model.id_ciudad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <script>
+            function agregarCiudad() {
+                if (document.getElementById("id_ciudad").value == -1) {
+                    document.getElementById("divOtraCiudad").style.display = "block"
+                }
+                else {
+                    document.getElementById("divOtraCiudad").style.display = "none"
+                }
+            }
+
+        </script>
+
+        <div id="divOtraCiudad" class="form-group" style="display:none;">
+            <label for="nombre_ciudad" class="control-label col-md-2"> Nombre de la ciudad</label>
+            <div class="col-md-12">
+                <input type="text" name="nombre_ciudad" id="nombre_ciudad" size="30" MaxLength="50" />
+                <span class="field-validation-valid text-danger"
+                      data-valmsg-for="nombre_ciudad"
+                      data-valmsg-replace="true">
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-12">
+                <input type="submit" value="Editar" class="btn btn-secondary" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<div>
+    @Html.ActionLink("Retornar", "ListadoOficinas", null, new { style = "font-weight:bold; color:blue" })
+</div>

@@ -1,0 +1,119 @@
+﻿@model IEnumerable<TrabajoCGB.Models.coche>
+
+@{
+    ViewBag.Title = "ListadoCoches";
+}
+
+<h2>Listado Coches</h2>
+
+<div class="text-center">
+    <h4>coche</h4>
+    <hr />
+    <div class="col-12 col-sm-8 col-lg-6 buscar mr-auto ml-auto">
+            <div class="row no-gutters">
+                <div class="col-8 offset-2">
+                    <input type="text" name="busquedacoche" id="busquedacoche" placeholder="Buscar coche por patente" style="background-color:grey; font-weight:bold; color:black; display:block; width:100%;  border-radius: 25px;">
+                </div>
+                <div class="col-2 pr-3">
+                    <input type="button" onclick="buscar()" id="submitBusqueda" class="btn btn-primary carousel-control-next-icon" style="height:30px; width:30px" value=" ">
+                </div>
+            </div>
+    </div>
+    <hr />
+</div>
+
+
+<script>
+    function buscar() {
+        list = document.getElementsByClassName("fila");
+        var i;
+        for (i = 0; i < list.length; i++) {
+            console.log(list[i].childNodes[1].innerHTML)
+            list[i].style.backgroundColor = "transparent";
+            list[i].style.color = "black";
+            list[i].style.fontWeight = "normal";
+            if (list[i].childNodes[1].innerHTML.trim() == document.getElementById("busquedacoche").value.trim()) {
+                list[i].style.backgroundColor = "black";
+                list[i].style.color = "white";
+                list[i].style.fontWeight = "bold";
+            }
+        }
+    }
+</script>
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.patente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.grupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numero_puertas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numero_pasajeros)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.capacidad_baúl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codigo_unico_oficina)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="fila">
+                <td>
+                    @Html.DisplayFor(modelItem => item.patente)
+                </td>
+                <td> 
+                    @Html.DisplayFor(modelItem => item.grupo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numero_puertas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numero_pasajeros)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.capacidad_baúl)
+                </td>
+                <td>
+                    @TrabajoCGB.Controllers.CocheController.RecuperarDireccionOficina(item.codigo_unico_oficina)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id_coche = item.id_coche }, new { style = "font-weight:bold; color:blue" })
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "Eliminar", new { id_coche = item.id_coche }, new { style = "font-weight:bold; color:blue" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Agregar", "AgregarCoche", null, new { style = "font-weight:bold; color:blue" })
+</p>
+<br />
+<p>
+    @Html.ActionLink("Retornar", "Index", "Home", null, new { style = "font-weight:bold; color:blue" })
+</p>

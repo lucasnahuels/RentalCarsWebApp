@@ -1,0 +1,87 @@
+﻿@model TrabajoCGB.Models.alquiler
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+@if ((bool)ViewData["no_existe_conductor"] == true)
+{
+    <script>
+        if (!confirm('El conductor no existe. ¿Desea crearlo?')) {
+            location.href = "/Alquiler/Editar?id_alquiler=@Model.id_alquiler"
+        }
+        else {
+            location.href = "/Conductor/AgregarConductor?DNI=@ViewData["dni"]" 
+        }
+    </script>
+}
+
+
+<h2>Editar</h2>
+
+<div class="text-center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>alquiler</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.duracion_dias, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.duracion_dias, new { htmlAttributes = new { size = "10", Max = "365", placeholder = "Solamente número" } })
+                    @Html.ValidationMessageFor(model => model.duracion_dias, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.tipo_seguro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.tipo_seguro, new { htmlAttributes = new { size = "30", maxlength = "50" } })
+                    @Html.ValidationMessageFor(model => model.tipo_seguro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.precio, new { htmlAttributes = new { size = "20", maxlength = "20", placeholder = "No utilice puntos" } })
+                    @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="DNI_conductor" class="control-label col-md-2">Dni conductor</label>
+                <div class="col-md-12">
+                    <input type="text" name="DNI_conductor" id="DNI_conductor" value="@TrabajoCGB.Controllers.ConductorController.RecuperarDNI_conductor(Model.id_conductor)" size="20" maxlength="20" />
+                    <span class="field-validation-valid text-danger"
+                          data-valmsg-for="DNI_conductor"
+                          data-valmsg-replace="true">
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_coche, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.Action("ListadoCoches")
+                    @Html.ValidationMessageFor(model => model.id_coche, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" col-md-12">
+                    <input type="submit" value="Editar" class="btn btn-secondary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Retornar", "ListadoAlquileres", null, new { style = "font-weight:bold; color:blue" })
+    </div>
+
+</div>

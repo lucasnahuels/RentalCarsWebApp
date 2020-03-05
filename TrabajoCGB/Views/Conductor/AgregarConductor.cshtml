@@ -1,0 +1,74 @@
+﻿@model TrabajoCGB.Models.conductor
+
+@{
+    ViewBag.Title = "AgregarConductor";
+}
+
+<h2>Agregar Conductor</h2>
+
+<div class="text-center" id="div_inicial">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>conductor</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DNI, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.DNI, new { htmlAttributes = new { size = "20" } })
+                    @Html.ValidationMessageFor(model => model.DNI, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nombre_conductor, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.nombre_conductor, new { htmlAttributes = new { size = "30", maxlength = "50" } })
+                    @Html.ValidationMessageFor(model => model.nombre_conductor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { size = "30", maxlength = "50", placeholder = "Calle y número. Piso en caso de dpto" } })
+                    @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.telefono_contacto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.telefono_contacto, new { htmlAttributes = new { size = "25", maxlength = "50" } })
+                    @Html.ValidationMessageFor(model => model.telefono_contacto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nro_tarjeta_credito, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.nro_tarjeta_credito, new { htmlAttributes = new { size = "25", max = "10000000000000000" } })
+                    @Html.ValidationMessageFor(model => model.nro_tarjeta_credito, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="Crear" class="btn btn-secondary" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Retornar", "ListadoAlquileres", "Alquiler", new { style = "font-weight:bold; color:blue" })
+    </div>
+
+</div>
+

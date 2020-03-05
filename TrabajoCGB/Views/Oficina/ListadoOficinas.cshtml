@@ -1,0 +1,98 @@
+﻿@model IEnumerable<TrabajoCGB.Models.OficinaAux>
+
+@{
+    ViewBag.Title = "ListadoOficinas";
+}
+
+
+<h2>ListadoOficinas</h2>
+
+
+<div class="text-center">
+    <h4>oficina</h4>
+    <hr />
+    <div class="col-12 col-sm-8 col-lg-6 buscar mr-auto ml-auto">
+        <div class="row no-gutters">
+            <div class="col-8 offset-2">
+                <input type="text" name="busquedaOficina" id="busquedaOficina" placeholder="Buscar oficina por ciudad" style="background-color:grey; font-weight:bold; color:black; display:block; width:100%;  border-radius: 25px;">
+            </div>
+            <div class="col-2 pr-3">
+                <input type="button" onclick="buscar()" class="btn btn-primary carousel-control-next-icon" style="height:30px; width:30px" value=" ">
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+<script>
+    function buscar() {
+        list = document.getElementsByClassName("fila");
+        var i;
+        for (i = 0; i < list.length; i++) {
+            console.log(list[i].childNodes[1].innerHTML)
+            list[i].style.backgroundColor = "transparent";
+            list[i].style.color = "black";
+            list[i].style.fontWeight = "normal";
+            if (list[i].childNodes[1].innerHTML.trim() == document.getElementById("busquedaOficina").value.trim()) {
+                list[i].style.backgroundColor = "black";
+                list[i].style.color = "white";
+                list[i].style.fontWeight = "bold";
+            }
+        }
+    }
+</script>
+
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>
+                Ciudad
+            </th>
+            <th>
+                Calle
+            </th>
+            <th>
+                Número
+            </th>
+            <th>
+                Teléfono
+            </th>
+        </tr>
+
+        @foreach (var oficina in Model)
+        {
+            <tr class="fila">
+                <td>
+                    @oficina.nombre_ciudad                   
+                </td>
+                <td>
+                    @oficina.calle
+                </td>
+                <td>
+                    @oficina.numero
+                </td>
+                <td>
+                    @oficina.telefono
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Modificar", new { cod = oficina.codigo_unico_oficina }, new { style = "font-weight:bold; color:blue" })
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "Eliminar", new { cod = oficina.codigo_unico_oficina }, new { style = "font-weight:bold; color:blue" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+<p>
+    @Html.ActionLink("Agregar oficina", "Agregar", null, new { style = "font-weight:bold; color:blue" })
+</p>
+<br />
+<p>
+    @Html.ActionLink("Retornar", "Index", "Home", null, new { style = "font-weight:bold; color:blue" })
+</p>
+

@@ -1,0 +1,67 @@
+﻿@model TrabajoCGB.Models.oficina
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Esta seguro que desea eliminar?</h3>
+<div class="text-center">
+    <h4>oficina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo_unico_oficina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo_unico_oficina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_ciudad)
+        </dt>
+
+        <dd>
+            @TrabajoCGB.Controllers.OficinaController.RecuperarNombreCiudad(Model.id_ciudad)
+        </dd>
+
+    </dl>
+
+ 
+
+    @using (Html.BeginForm("Borrar", "Oficina", FormMethod.Get))
+    {     
+    <div class="form-actions no-color">
+        <input type="hidden" name="cod" value="@Model.codigo_unico_oficina" /> 
+        <input type="submit" value="Delete" class="btn btn-secondary" />
+    </div>
+    }
+    @Html.ActionLink("Back to List", "ListadoOficinas")
+
+</div>

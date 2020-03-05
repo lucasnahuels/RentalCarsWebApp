@@ -1,0 +1,90 @@
+﻿@model TrabajoCGB.Models.coche
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Esta seguro que desea eliminar?</h3>
+<div class="text-center">
+    <h4>coche</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.patente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.patente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grupo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grupo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_puertas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_puertas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_pasajeros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_pasajeros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidad_baúl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidad_baúl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo_unico_oficina)
+        </dt>
+
+        <dd>
+            @TrabajoCGB.Controllers.CocheController.RecuperarDireccionOficina(Model.codigo_unico_oficina)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Borrar", "Coche", FormMethod.Get))
+    {
+        <div class="form-actions no-color">
+            <input type="hidden" name="id_coche" value="@Model.id_coche" />
+            <input type="submit" value="Delete" class="btn btn-secondary" />
+        </div>
+    }
+
+    @Html.ActionLink("Retornar", "ListadoCoches", null, new { style = "font-weight:bold; color:blue" })
+
+</div>

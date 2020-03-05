@@ -1,0 +1,58 @@
+﻿@model TrabajoCGB.Models.conductor
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div class="text-center">
+    <h4>conductor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DNI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DNI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_conductor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_conductor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono_contacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono_contacto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nro_tarjeta_credito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nro_tarjeta_credito)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id_conductor = Model.id_conductor }, new { style = "font-weight:bold; color:blue" }) |
+    @Html.ActionLink("Retornar", "ListadoAlquileres", "Alquiler", null, new { style = "font-weight:bold; color:blue" })
+</p>

@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid">
+
+    <h1 class=""><strong>Pagina principal</strong></h1><br />
+
+    <h4 class="border-info">¿Que desea ver?</h4><br /><br />
+
+    <div class="row">
+        <div class="col-6 col-sm-4" style="justify-content:center; display:flex">
+            @Html.ActionLink("Coches", "ListadoCoches", "Coche", null, new { @class = "btn btn-large btn-primary", style = "width:200px; display:inline-block; margin-bottom:30px" })
+        </div>
+        <div class="col-6 col-sm-4" style="justify-content:center; display:flex">
+            @Html.ActionLink("Registro de alquileres", "ListadoAlquileres", "Alquiler", null, new { @class = "btn btn-large btn-primary", style = "width:200px; display:inline-block; margin-bottom:30px" })
+        </div>
+        <div class="col-12 col-sm-4" style="justify-content:center; display:flex">
+            @Html.ActionLink("Oficinas funcionando", "ListadoOficinas", "Oficina", null, new { @class = "btn btn-large btn-primary", style = "width:200px; display:inline-block; margin-bottom:30px" })
+        </div>
+    </div>
+    <hr />
+    <hr />
+
+    <div class="row mt-3">
+        <div class="col-12 mt-3">
+            <div class="carousel slide" id="secondary-carousel" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#secondary-carousel" data-slid-to="0" class="active"></li>
+                    <li data-target="#secondary-carousel" data-slid-to="1"></li>
+                    <li data-target="#secondary-carousel" data-slid-to="2"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="carousel-caption d-block">
+                            <h4>Alquiler de autos</h4>
+                            <p>Precio Más Bajo! Llama . Precios Imbatibles. Marcas: Audi, BMW, Fiat, Ford, Hyundai!</p>
+                        </div>
+                        <img src="~/img3.jpg" alt="" style="width:600px;">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption d-block">
+                            <h4>Alquiler de autos</h4>
+                            <p>Precio Más Bajo! Llama . Precios Imbatibles. Marcas: Audi, BMW, Fiat, Ford, Hyundai!</p>
+                        </div>
+                        <img src="~/img2.jpg" alt="" style="width:700px;">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption d-block">
+                            <h4>Alquiler de autos</h4>
+                            <p>Precio Más Bajo! Llama . Precios Imbatibles. Marcas: Audi, BMW, Fiat, Ford, Hyundai!</p>
+                        </div>
+                        <img src="~/img1.jpg" alt="" style="width:700px;">
+                    </div>
+                </div>
+
+                <a href="#secondary-carousel" class="carousel-control-prev" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:black"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+
+                <a href="#secondary-carousel" class="carousel-control-next" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color:black"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+<script>
+
+
+</script>
+}

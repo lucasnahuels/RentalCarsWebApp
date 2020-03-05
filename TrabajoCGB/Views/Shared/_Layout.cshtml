@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <style>
+        h1, h2, h3, h4 {
+            text-align: center;
+        }
+
+        img {
+            height: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body {
+            background-size: 100%;
+            background-image: url('../../roto3.jpg');
+        }
+
+        input::-webkit-input-placeholder {
+            color: black;
+        }
+
+        p footer {
+            text-align: left;
+        }
+
+        footer {
+        }
+    </style>
+
+</head>
+<body>
+    <header style="background: black;">
+        <div class="container">
+            <div class="row">
+                <div class="col col-auto">
+                @Html.ActionLink("Principal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style="color:white" })
+                </div>
+                <div class="col col-auto ml-auto">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#fm-modal-grid">¿Quienes somos?</button>
+                    <div class="modal fade" id="fm-modal-grid" tabindex="-1" role="dialog" aria-labelledby="fm-modal-grid" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="">ALQUILERES PREMIUM</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Cerrar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">                                   
+                                    <p>
+                                        Compara entre 900 Proveedores. Encuentra el Coche 
+                                        Adecuado, al Mejor Precio. 
+                                        Hablamos Tu Idioma. Cambios Gratis Reservas. 
+                                        Sin costes ocultos. Precios Imbatibles. 
+                                        Marcas: Audi, BMW, Fiat.
+                                    </p>                                      
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container body-content" id="footer">
+        @RenderBody()
+        <hr />
+    </div>
+    <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required:false) 
+
+</body>
+</html>

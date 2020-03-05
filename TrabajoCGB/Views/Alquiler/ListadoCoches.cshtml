@@ -1,0 +1,9 @@
+﻿@model IEnumerable<TrabajoCGB.Models.coche>
+
+<select name="id_coche" id="id_coche" class="btn btn-primary">
+    <option disabled='disabled' selected>Coches</option>
+    @foreach (var coche in Model)
+    {
+        <option value="@coche.id_coche">@coche.patente</option>
+    }
+</select>
